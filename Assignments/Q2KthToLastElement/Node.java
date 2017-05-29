@@ -1,10 +1,10 @@
 package Q2KthToLastElement;
 
-public class Node {
-    public int data;
-    public Node next;
+public class Node<T> {
+    public T data;
+    public Node<T> next;
 
-    public Node(int d) {
+    public Node(T d) {
         data = d;
     }
 }
