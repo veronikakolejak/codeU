@@ -12,5 +12,4 @@ Used two pointers of which one was ahead exactly k nodes from the other
 
   
 *TODO:*
-- Use the Optional class mentioned by Andrew
 - Write unit tests for kthElement method
