@@ -6,6 +6,8 @@ class CheckIfPermutationTest extends GroovyTestCase {
         assertTrue(CheckIfPermutation.arePermutations("", ""));
         assertTrue(CheckIfPermutation.arePermutations("siLEnt", "liSteN"));
         assertFalse(CheckIfPermutation.arePermutations("hello", "helo"));
+        assertFalse(CheckIfPermutation.arePermutations("helo", "hello"));
         assertFalse(CheckIfPermutation.arePermutations("", "listen"));
+        assertFalse(CheckIfPermutation.arePermutations("listen", ""));
     }
 }
