@@ -27,22 +27,4 @@ public class KthToLastElement {
 
         return pointer2.get();
     }
-
-
-    public static void main(String[] args) {
-        int[] nodeData = {5, 6, 7, 8, 9, 10, 11, 12};
-        int k = -1;
-
-        Node head = new Node(nodeData[0]);
-        Node node = head;
-
-        for (int i = 1; i < nodeData.length; i++) {
-            Node newNode = new Node(nodeData[i]);
-            node.next = newNode;
-            node = node.next;
-        }
-
-        Node result = kthElement(head, k);
-        if (result != null) System.out.println(result.data);
-    }
 }
