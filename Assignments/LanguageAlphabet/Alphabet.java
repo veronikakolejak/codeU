@@ -16,6 +16,7 @@ public class Alphabet {
   }
 
   public Character[] findAlphabet() {
+    // It is assumed that the dictionary given is sound and correct
     buildGraph();
     sortTopologically();
 
@@ -102,11 +103,10 @@ public class Alphabet {
   }
 
   public static void main(String args[]) {
-    System.out.println("hello");
     System.out.println(indexOfMismatch("hello", "hell"));
     System.out.println(indexOfMismatch("hello", "pam"));
 
-    Alphabet a = new Alphabet(new String[]{"ART", "RAT", "CATB", "CAR"});
+    Alphabet a = new Alphabet(new String[]{"ART", "RAT", "CATB!3", "CARX"});
 
     Character[] alphabet = a.findAlphabet();
 
