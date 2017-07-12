@@ -4,13 +4,21 @@ import java.util.ArrayList;
 
 public class BinaryTree {
   public static void printAncestors(BinaryTreeNode<Integer> root, Integer key) {
-    ArrayList<Integer> ancestors = new ArrayList<Integer>();
+    Integer[] result = getAncestorsKeys(root, key);
+
+    for (int i =  0; i < result.length; i++) {
+      System.out.print(result[i] + " ");
+    }
+    System.out.println();
+  }
+
+  public static Integer[] getAncestorsKeys(BinaryTreeNode<Integer> root, Integer key) {
+    ArrayList<Integer> ancestors = new ArrayList<>();
     findAncestors(root, key, ancestors);
 
-    /* Output the list from findAncestors() in reverse order, doesn't output anything if the key is not present or is the root */
-    for (int i = ancestors.size() - 1; i >= 0; i--) {
-      System.out.println(ancestors.get(i));
-    }
+    Integer[] ancestorsArray = new Integer[ancestors.size()];
+    ancestorsArray = ancestors.toArray(ancestorsArray);
+    return ancestorsArray;
   }
 
   public static boolean findAncestors(BinaryTreeNode<Integer> root, Integer targetKey, ArrayList<Integer> ancestors) {
@@ -73,6 +81,5 @@ public class BinaryTree {
     } else {
       return helperCommonAncestor(root.right, node1, node2);
     }
-
   }
 }

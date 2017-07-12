@@ -5,7 +5,7 @@ public class BinaryTreeNode<T> {
   public BinaryTreeNode<T> left;
   public BinaryTreeNode<T> right;
 
-  public BinaryTreeNode(T d) {
-    data = d;
+  public BinaryTreeNode(T data) {
+    this.data = data;
   }
 }
