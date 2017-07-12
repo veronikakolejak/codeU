@@ -19,7 +19,7 @@ public class Alphabet {
   }
 
   public Character[] findAlphabet() {
-    // Assumed the dictionary given is sound and correct, if not, return an empty alphabet array
+    // Assume the dictionary given is sound and correct, if not, return an empty alphabet array
     // Uppercase and lowercase characters of the same letter are considered different letters of an alphabet
     buildGraph();
     sortTopologically();
@@ -39,7 +39,7 @@ public class Alphabet {
 
     // Cycle through the dictionary, always looking at two neighboring words
     for (int i = 0; i < dictionary.length - 1; i++) {
-      int index = indexOfMismatch(dictionary[i], dictionary[i + 1]);
+      int index = indexOfFirstMismatch(dictionary[i], dictionary[i + 1]);
 
       // if it is possible that some information can be inferred from these two words, do so
       if (index > -1) {
@@ -100,7 +100,7 @@ public class Alphabet {
     return node;
   }
 
-  public static int indexOfMismatch(String word1, String word2) {
+  public static int indexOfFirstMismatch(String word1, String word2) {
     int i = 0;
 
     while (i < word1.length() && i < word2.length() && word1.charAt(i) == word2.charAt(i)) {
