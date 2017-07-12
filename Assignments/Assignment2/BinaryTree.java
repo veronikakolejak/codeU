@@ -50,7 +50,7 @@ public class BinaryTree {
     return helperCommonAncestor(root, node1, node2);
   }
 
-  public static boolean presentInSubtree(BinaryTree<Integer> root, BinaryTreeNode<Integer> node) {
+  public static boolean presentInSubtree(BinaryTreeNode<Integer> root, BinaryTreeNode<Integer> node) {
     if (root == null) {
       return false;
     }
