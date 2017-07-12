@@ -63,23 +63,22 @@ public class BinaryTree {
   }
 
   public static BinaryTreeNode<Integer> helperCommonAncestor(BinaryTreeNode<Integer> root, BinaryTreeNode<Integer> node1, BinaryTreeNode<Integer> node2) {
-    /* Return if there are no more nodes to explore on this path, also the base case for the recursion */
-    if (root == node1 || root == node2 || root == null) {
+    /* Return if there are no more nodes to explore on this path, the base case for the recursion */
+    if (root == null) {
+      return null;
+    }
+    if (root == node1 || root == node2 ) {
       return root;
     }
 
-    boolean node1InLeftSubtree = presentInSubtree(root.left, node1);
-    boolean node2InLeftSubtree = presentInSubtree(root.left, node2);
+    BinaryTreeNode lookLeft = helperCommonAncestor(root.left, node1, node2);
+    BinaryTreeNode lookRight = helperCommonAncestor(root.right, node1, node2);
 
-    /* If they are on the separate sides, exit this level */
-    if (node1InLeftSubtree != node2InLeftSubtree) {
+    /* If they are both non-null then they are on separate sides and this is the common ancestor */
+    if (lookLeft != null && lookRight != null) {
       return root;
     }
 
-    if (node1InLeftSubtree) {
-      return helperCommonAncestor(root.left, node1, node2);
-    } else {
-      return helperCommonAncestor(root.right, node1, node2);
-    }
+    return (lookLeft != null) ? lookLeft : lookRight;
   }
 }
