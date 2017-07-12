@@ -16,8 +16,6 @@ public class Node {
 
   public void addNext(Node node) {
     if (!values.contains(node.getValue())) {
-      // TODO: Check for contradictions
-
       adjacent.add(node);
       values.add(node.getValue());
     }

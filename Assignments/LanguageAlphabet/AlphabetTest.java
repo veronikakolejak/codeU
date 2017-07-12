@@ -30,10 +30,26 @@ public class AlphabetTest extends TestCase {
     assertThat(alphabet.findAlphabet(), is(new Character[]{'A', 'T', 'R', 'C'}));
   }
 
-  public void testNewCharsButNoChangeToOldOnes() {
-    String[] dictionary = new String[]{"ART", "RAT", "RAD", "RADS", "CAT", "CAR", "SOS", "SOA"};
+  public void testNewCharInRespectToFirstOld() {
+    // S should come before A and O should come after A
+    String[] dictionary = new String[]{"ART", "RAT", "CAT", "CAR", "COS", "COA"};
     Alphabet alphabet = new Alphabet(dictionary);
-    assertThat(alphabet.findAlphabet(), is(new Character[]{'S', 'A', 'T', 'D', 'R', 'C', 'O'}));
+    assertThat(alphabet.findAlphabet(), is(new Character[]{'T', 'S', 'A', 'R', 'O', 'C'}));
   }
 
+  public void testInvalidDictionary() {
+    // S comes after A but also before A and S comes after C but also before C
+    String[] dictionary = new String[]{"ART", "RAT", "CAT", "CAR", "SOS", "COA"};
+    Alphabet alphabet = new Alphabet(dictionary);
+    Character[] emptyArray = {};
+    assertThat(alphabet.findAlphabet(), is(emptyArray));
+  }
+
+  public void testEmptyDictionary() {
+    // S comes after A but also before A and S comes after C but also before C
+    String[] dictionary = new String[]{""};
+    Alphabet alphabet = new Alphabet(dictionary);
+    Character[] emptyArray = {};
+    assertThat(alphabet.findAlphabet(), is(emptyArray));
+  }
 }

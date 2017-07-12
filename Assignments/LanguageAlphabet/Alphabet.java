@@ -7,16 +7,20 @@ import java.util.Queue;
 
 public class Alphabet {
   private static String[] dictionary;
-  private static ArrayList<Character> alphabetChars = new ArrayList<>();
-  private static HashMap<Character, Node> graph = new HashMap<>();
-  private ArrayList<Character> result = new ArrayList<>();
+  private static ArrayList<Character> alphabetChars;
+  private static HashMap<Character, Node> graph;
+  private ArrayList<Character> result;
 
   public Alphabet(String[] dict) {
     this.dictionary = dict;
+    this.graph = new HashMap<>();
+    this.alphabetChars = new ArrayList<>();
+    this.result = new ArrayList<>();
   }
 
   public Character[] findAlphabet() {
-    // It is assumed that the dictionary given is sound and correct
+    // Assumed the dictionary given is sound and correct, if not, return an empty alphabet array
+    // Uppercase and lowercase characters of the same letter are considered different letters of an alphabet
     buildGraph();
     sortTopologically();
 
@@ -26,7 +30,7 @@ public class Alphabet {
   }
 
   public void buildGraph() {
-    // Since we don't know what is the number of 'letters' in the alphabet, we have to check every character in every word
+    // Since the number of letters in the alphabet is unknown, check every character in every word
     for (int word = 0; word < dictionary.length; word++) {
       for (int letter = 0; letter < dictionary[word].length(); letter++) {
         getNodeByChar(dictionary[word].charAt(letter));
@@ -54,24 +58,33 @@ public class Alphabet {
 
     // Find all nodes that could be first in the alphabet and add them to the queue
     for (Character ch : alphabetChars) {
-
       Node node = graph.get(ch);
+
       if (node.getIncomingCount() == 0) {
         q.add(node);
       }
     }
 
-    // Remove those nodes from other node's dependencies
+    // Keep count of already ordered alphabet characters
+    int count = 0;
+
+    // Remove nodes with 0 incoming edges from other node's dependencies
     while (!q.isEmpty()) {
       Node current = q.poll();
       result.add(current.getValue());
+      count++;
 
-      // Decrease number of dependencies for each outgoing node
+      // Decrease the number of dependencies for each outgoing node
       for (Node node : current.getAdjacent()) {
         if (node.decrementedIncomingCount() == 0) {
           q.add(node);
         }
       }
+    }
+
+    // If some characters are missing, there must have been a cycle in the graph and an incorrect dictionary as the input
+    if (count < alphabetChars.size()) {
+      result = new ArrayList<>();
     }
   }
 
@@ -81,7 +94,6 @@ public class Alphabet {
     }
 
     Node node = new Node(ch);
-
     graph.put(ch, node);
     alphabetChars.add(ch);
 
@@ -100,19 +112,5 @@ public class Alphabet {
     }
 
     return i;
-  }
-
-  public static void main(String args[]) {
-    System.out.println(indexOfMismatch("hello", "hell"));
-    System.out.println(indexOfMismatch("hello", "pam"));
-
-    Alphabet a = new Alphabet(new String[]{"ART", "RAT", "CATB!3", "CARX"});
-
-    Character[] alphabet = a.findAlphabet();
-
-    for (Character ch : alphabet) {
-      System.out.print(ch + " ");
-    }
-    System.out.println();
   }
 }
